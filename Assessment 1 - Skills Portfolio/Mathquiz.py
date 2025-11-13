@@ -21,17 +21,6 @@ correct_answer = 0
 start_time = 0
 difficulty = 1
 
-# Store background image reference
-bg_image_ref = None
-
-# UI elements
-question_label = None
-answer_var = None
-answer_entry = None
-submit_button = None
-feedback_label = None
-progress_label = None
-
 def clearscreen():
     """Clear all widgets from the root window"""
     for widget in root.winfo_children():
@@ -50,7 +39,16 @@ def introscreen():
     """Display the introduction screen"""
     clearscreen()
     set_background()
- 
+    title_frame = Frame(root, bg="#f3ca7e", relief=RIDGE, bd=3)
+    title_frame.place(relx=0.5, rely=0.3, anchor=CENTER)
+    title_label = Label(title_frame, text="WELCOME TO THE MATH QUIZ!", 
+                       font=("Arial", 32, "bold"), 
+                       bg="#f3ca7e", 
+                       fg="#1976D2",
+                       padx=30,
+                       pady=15)
+    title_label.pack()
+
     startbutton = Button(root, text="START", font=("Arial", 16, "bold"), 
                          command=levelscreen, bg="#ec407a", fg="white", width=20, height=2)
     startbutton.place(relx=0.5, rely=0.75, anchor=CENTER)
@@ -65,7 +63,7 @@ def levelscreen():
 
 def show_level_selection():
     """Show difficulty level selection screen"""
-    # Create a semi-transparent frame to center the content
+
     frame = Frame(root, bg="#f3ca7e", relief=RIDGE, bd=3)
     frame.place(relx=0.5, rely=0.5, anchor=CENTER)
     
@@ -108,11 +106,11 @@ def start_quiz(difficulty_level):
     set_background()
     
     # Home button
-    home_btn = Button(root, text="🏠 Home", font=("Arial", 10), 
-                      command=introscreen, bg="#757575", fg="white", width=10)
+    home_btn = Button(root, text="Main Home", font=("Arial", 10), 
+                      command=introscreen, bg="#CF4F8F", fg="white", width=10)
     home_btn.place(x=10, y=10)
     
-    # Create quiz UI
+   
     Label(root, text="Math Quiz", font=("Arial", 20, "bold"), bg='white', fg='#1976D2').pack(pady=15)
     
     question_label = Label(root, text="", font=("Arial", 18), bg='white', fg='#212121')
@@ -167,9 +165,9 @@ def next_question():
 def show_answer_feedback(user_answer):
     """Shows whether the user's answer was correct or wrong."""
     if user_answer == correct_answer:
-        feedback_label.config(text="Correct! ✓", fg="green")
+        feedback_label.config(text="Omg you are correct! ✓", fg="green")
     else:
-        feedback_label.config(text=f"Wrong! ✗ Correct answer: {correct_answer}", fg="red")
+        feedback_label.config(text=f"Oppss wrong answer ✗ Correct answer: {correct_answer}", fg="red")
 
 def check_answer():
     """Checks the user's answer and provides feedback."""
@@ -203,8 +201,8 @@ def display_results():
     set_background()
     
     # Home button
-    home_btn = Button(root, text="🏠 Home", font=("Arial", 10), 
-                      command=introscreen, bg="#757575", fg="white", width=10)
+    home_btn = Button(root, text="Return back to Home", font=("Arial", 10), 
+                      command=introscreen, bg="#E495D0", fg="white", width=20)
     home_btn.place(x=10, y=10)
     
     # Determine grade
