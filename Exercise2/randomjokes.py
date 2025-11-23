@@ -7,13 +7,13 @@ import os
 jokes_list = []
 current_punchline = ""
 
-def load_jokes():
+def load_jokes(): # I created a new folder and saved this exercise in it for easy access this will help to read the other file 
     """Load jokes from the text file"""
     global jokes_list
     jokes_list = []
     file_path = "Exercise2/randomJokes.txt"
 
-    if not os.path.exists(file_path):
+    if not os.path.exists(file_path): # this is an error message incase the file cannot be reached
         setup_label.config(text="Oops! Can't find the jokes file at 'Exercise2/randomJokes.txt'")
         return
 
@@ -22,20 +22,20 @@ def load_jokes():
             for line in file:
                 line = line.strip()
                 if '?' in line:
-                    parts = line.split('?', 1)
+                    parts = line.split('?', 1) # Check if the line contains a question mark (split indicator)
                     if len(parts) == 2:
                         setup = parts[0].strip() + "?"
-                        punchline = parts[1].strip()
+                        punchline = parts[1].strip()  # Split the line into setup and punchline at the first '
                         jokes_list.append((setup, punchline))
 
-        if not jokes_list:
+        if not jokes_list:   # Display this message if the file is not found
             setup_label.config(text="Hmm, the file is empty. Add some jokes!")
 
-    except Exception as e:
-        setup_label.config(text=f"Something went wrong: {e}")
+    except Exception as e:  # Display an error message for any other unexpected error
+        setup_label.config(text=f"Opps!something went wrong: {e}")
 
 
-def get_new_joke():
+def get_new_joke():  
     """Pick a random joke and show it"""
     global current_punchline
 
