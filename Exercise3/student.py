@@ -78,7 +78,7 @@ def view_all_students():
         tree.delete(i)
 
     if not students:
-        messagebox.showinfo("Info", "No students in the system.")
+        messagebox.showinfo("OPPSSS", "No students in the system.")
         return
 
     total_percentage = 0
@@ -98,10 +98,11 @@ def view_all_students():
 def view_individual_student():
     """View individual student record."""
     search_window = tk.Toplevel(root)
-    search_window.title("View Individual Student")
+    search_window.title("Individual Student")
     search_window.geometry("400x300")
     search_window.configure(bg="pink")
     
+
     tk.Label(search_window, text="Enter Student ID:", bg="pink", font=("Arial", 12)).pack(pady=20)
     search_entry = tk.Entry(search_window, font=("Arial", 12))
     search_entry.pack(pady=10)
@@ -192,60 +193,6 @@ def show_lowest_score():
     result_text.insert(tk.END, f"Grade: {grade}\n")
     result_text.config(state='disabled')
 
-def add_student():
-    """Add a new student."""
-    try:
-        id_ = int(id_entry.get())
-        name = name_entry.get().strip()
-        
-        if not name:
-            raise ValueError("Name cannot be empty.")
-        
-        if not (1000 <= id_ <= 9999):
-            raise ValueError("Student ID must be between 1000 and 9999.")
-        
-        if any(student["id"] == id_ for student in students):
-            raise ValueError(f"Student ID {id_} already exists.")
-        
-        marks = list(map(int, marks_entry.get().split(',')))
-        exam = int(exam_entry.get())
-
-        if len(marks) != 3:
-            raise ValueError("Coursework marks must have exactly 3 values.")
-        
-        if any(mark < 0 or mark > 20 for mark in marks):
-            raise ValueError("Coursework marks must be between 0 and 20.")
-        
-        if exam < 0 or exam > 100:
-            raise ValueError("Exam mark must be between 0 and 100.")
-
-        students.append({"id": id_, "name": name, "marks": marks, "exam": exam})
-        save_students(FILE_PATH, students)
-        view_all_students()
-        clear_entries()
-        messagebox.showinfo("Success", "Student added successfully.")
-    except ValueError as e:
-        messagebox.showerror("Error", f"Invalid input: {e}")
-
-def delete_student():
-    """Delete a selected student."""
-    selected_item = tree.selection()
-    if not selected_item:
-        messagebox.showwarning("Warning", "No student selected.")
-        return
-
-    response = messagebox.askyesno("Confirm Delete", "Are you sure you want to delete this student?")
-    if not response:
-        return
-
-    selected_student_id = int(tree.item(selected_item[0], "values")[0])
-    global students
-    students = [student for student in students if student["id"] != selected_student_id]
-
-    save_students(FILE_PATH, students)
-    view_all_students()
-    messagebox.showinfo("Success", "Student deleted successfully.")
-
 def clear_entries():
     """Clear input fields."""
     id_entry.delete(0, tk.END)
@@ -301,19 +248,6 @@ marks_entry.grid(row=0, column=5, padx=5, pady=5)
 tk.Label(input_frame, text="Exam (0-100):", bg="pink").grid(row=0, column=6, padx=5, pady=5)
 exam_entry = tk.Entry(input_frame, width=10)
 exam_entry.grid(row=0, column=7, padx=5, pady=5)
-
-# Buttons for actions
-add_button = tk.Button(input_frame, text="Add Student", command=add_student, bg="#4CAF50", fg="white")
-add_button.grid(row=1, column=0, columnspan=2, padx=5, pady=10, sticky="ew")
-
-delete_button = tk.Button(input_frame, text="Delete Student", command=delete_student, bg="#f44336", fg="white")
-delete_button.grid(row=1, column=2, columnspan=2, padx=5, pady=10, sticky="ew")
-
-view_button = tk.Button(input_frame, text="Refresh View", command=view_all_students, bg="#2196F3", fg="white")
-view_button.grid(row=1, column=4, columnspan=2, padx=5, pady=10, sticky="ew")
-
-clear_button = tk.Button(input_frame, text="Clear Fields", command=clear_entries, bg="#FF9800", fg="white")
-clear_button.grid(row=1, column=6, columnspan=2, padx=5, pady=10, sticky="ew")
 
 # Table for displaying student data
 columns = ("ID", "Name", "Coursework", "Exam", "Total", "Percentage", "Grade")
