@@ -193,20 +193,13 @@ def show_lowest_score():
     result_text.insert(tk.END, f"Grade: {grade}\n")
     result_text.config(state='disabled')
 
-def clear_entries():
-    """Clear input fields."""
-    id_entry.delete(0, tk.END)
-    name_entry.delete(0, tk.END)
-    marks_entry.delete(0, tk.END)
-    exam_entry.delete(0, tk.END)
-
 # Load initial student data from file
 students = load_students(FILE_PATH)
 
 # Create main window
 root = tk.Tk()
 root.title("Student Management System")
-root.geometry("1000x600")
+root.geometry("1000x500")
 root.configure(bg="pink")
 
 # Menu Bar
@@ -223,31 +216,11 @@ view_menu.add_command(label="Highest Score", command=show_highest_score)
 view_menu.add_command(label="Lowest Score", command=show_lowest_score)
 
 # Frames for layout
-input_frame = tk.Frame(root, padx=10, pady=10, bg="pink")
-input_frame.pack(side=tk.TOP, fill=tk.X)
-
 table_frame = tk.Frame(root, padx=10, pady=10, bg="pink")
 table_frame.pack(side=tk.TOP, fill=tk.BOTH, expand=True)
 
 summary_frame = tk.Frame(root, padx=10, pady=5, bg="pink")
 summary_frame.pack(side=tk.BOTTOM, fill=tk.X)
-
-# Input fields for adding students
-tk.Label(input_frame, text="ID (1000-9999):", bg="pink").grid(row=0, column=0, padx=5, pady=5)
-id_entry = tk.Entry(input_frame, width=12)
-id_entry.grid(row=0, column=1, padx=5, pady=5)
-
-tk.Label(input_frame, text="Name:", bg="pink").grid(row=0, column=2, padx=5, pady=5)
-name_entry = tk.Entry(input_frame, width=15)
-name_entry.grid(row=0, column=3, padx=5, pady=5)
-
-tk.Label(input_frame, text="Marks (3 values, 0-20):", bg="pink").grid(row=0, column=4, padx=5, pady=5)
-marks_entry = tk.Entry(input_frame, width=12)
-marks_entry.grid(row=0, column=5, padx=5, pady=5)
-
-tk.Label(input_frame, text="Exam (0-100):", bg="pink").grid(row=0, column=6, padx=5, pady=5)
-exam_entry = tk.Entry(input_frame, width=10)
-exam_entry.grid(row=0, column=7, padx=5, pady=5)
 
 # Table for displaying student data
 columns = ("ID", "Name", "Coursework", "Exam", "Total", "Percentage", "Grade")
