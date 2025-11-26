@@ -67,7 +67,7 @@ def show_level_selection():
     frame = Frame(root, bg="#f3ca7e", relief=RIDGE, bd=3)
     frame.place(relx=0.5, rely=0.5, anchor=CENTER)
     
-    Label(frame, text="WLCOME TO THE Math Quiz", font=("Arial", 35, "bold"), bg="#f3ca7e", fg='#1976D2').pack(pady=25, padx=50)
+    Label(frame, text="WELCOME TO THE Math Quiz", font=("Arial", 35, "bold"), bg="#f3ca7e", fg='#1976D2').pack(pady=25, padx=50)
     Label(frame, text="Select Difficulty Level:", font=("Arial", 14), bg="#f3ca7e", fg='#424242').pack(pady=15)
     
     # Difficulty selection buttons
